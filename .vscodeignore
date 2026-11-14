@@ -1,0 +1,12 @@
+# Development-only files, not shipped in the .vsix
+assets/**
+preview/**
+scripts/**
+dist/**
+*.vsix
+install-theme.ps1
+settings-snippets.json
+.gitignore
+screenshots/**
+images/screenshot-*
+.git/**

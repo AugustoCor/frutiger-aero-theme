@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frutiger Aero VS Code Theme — Interactive Workbench Explorer</title>
+  <style>
+    :root {
+      --glass-blur: 7px;
+      --glass-opacity: 0.56;
+      --editor-rgb: 24, 96, 130;
+      --sidebar-rgb: 28, 126, 96;
+      --kw-color: #8ef4ff;
+      --ctrl-color: #ffa6c2;
+      --str-color: #ffd46b;
+      --fn-color: #e8ff7a;
+      --type-color: #9effdc;
+      --var-color: #ffffff;
+      --prop-color: #d8f7ff;
+      --num-color: #a8f7ff;
+      --Aero-bevel: inset 0 1px 0 rgba(255,255,255,0.85),
+                    inset 0 -1px 0 rgba(0,45,70,0.35),
+                    inset 1px 0 0 rgba(255,255,255,0.35),
+                    inset -1px 0 0 rgba(255,255,255,0.35);
+    }
+
+    body.theme-deep-aqua {
+      --editor-rgb: 11, 48, 70;
+      --sidebar-rgb: 14, 68, 54;
+      --kw-color: #7ceeff;
+      --ctrl-color: #ff9ebb;
+      --str-color: #ffcf60;
+      --fn-color: #e2ff70;
+      --type-color: #8effd4;
+      --var-color: #f4fcff;
+      --prop-color: #ccf4ff;
+      --num-color: #9ef5ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #092232;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 18px;
+      gap: 14px;
+    }
+
+    /* ======================================================================
+       INTERACTIVE CONTROL DECK (TOP BAR)
+       ====================================================================== */
+    .control-deck {
+      width: 100%;
+      max-width: 1180px;
+      background: linear-gradient(180deg, rgba(165,230,255,0.28) 0%, rgba(28,108,148,0.65) 50%, rgba(16,76,110,0.85) 100%);
+      border: 1px solid rgba(180,242,255,0.7);
+      border-radius: 12px;
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: var(--Aero-bevel), 0 8px 24px rgba(0,0,0,0.45);
+      backdrop-filter: blur(12px);
+    }
+
+    .deck-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .deck-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #b8f2ff;
+      text-shadow: 0 1px 2px rgba(0,30,50,0.8);
+      margin-right: 4px;
+    }
+
+    .aero-btn {
+      cursor: pointer;
+      padding: 6px 13px;
+      border-radius: 7px;
+      border: 1px solid rgba(210,250,255,0.8);
+      background: linear-gradient(180deg, rgba(255,255,255,0.42) 0%, rgba(72,178,218,0.55) 48%, rgba(28,128,168,0.75) 52%, rgba(62,175,212,0.65) 100%);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 600;
+      text-shadow: 0 1px 2px rgba(0,35,55,0.75);
+      box-shadow: var(--Aero-bevel), 0 2px 5px rgba(0,30,50,0.35);
+      transition: all 0.14s ease;
+    }
+
+    .aero-btn:hover {
+      filter: brightness(1.12);
+    }
+
+    .aero-btn.active {
+      background: linear-gradient(180deg, #b8f8e2 0%, #3ed49a 46%, #1ea672 52%, #48e4ac 100%);
+      border-color: #ffffff;
+      color: #04281c;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.65);
+      box-shadow: inset 0 1px 0 #ffffff, 0 0 12px rgba(80,245,185,0.6);
+    }
+
+    .slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #def8ff;
+    }
+
+    .slider-wrap input[type="range"] {
+      accent-color: #4ce8b0;
+      width: 85px;
+      cursor: pointer;
+    }
+
+    /* ======================================================================
+       VISTA / 7 AERO GLASS WINDOW FRAME
+       ====================================================================== */
+    .vista-window {
+      width: 100%;
+      max-width: 1180px;
+      height: 760px;
+      border-radius: 11px;
+      padding: 8px;
+      background: linear-gradient(180deg, rgba(205,240,255,0.88) 0%, rgba(120,198,236,0.78) 48%, rgba(88,174,218,0.82) 52%, rgba(135,210,245,0.86) 100%);
+      border: 1px solid rgba(255,255,255,0.92);
+      box-shadow:
+        inset 0 1px 0 #ffffff,
+        inset 0 0 0 1px rgba(255,255,255,0.5),
+        0 20px 55px rgba(0,0,0,0.65),
+        0 0 28px rgba(85,205,255,0.28);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Window Title Bar */
+    .window-titlebar {
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6px 4px 8px;
+    }
+
+    .title-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #072336;
+      text-shadow: 0 0 8px rgba(255,255,255,0.95), 0 1px 0 rgba(255,255,255,0.8);
+    }
+
+    .vscode-orb {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #54d4ff 0%, #1682d6 55%, #0c529c 100%);
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: inset 0 1px 1px #ffffff, 0 1px 3px rgba(0,40,75,0.4);
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    /* Classic Vista Caption Buttons */
+    .caption-btns {
+      display: flex;
+      align-items: center;
+      border: 1px solid rgba(55,105,140,0.75);
+      border-radius: 0 0 5px 5px;
+      overflow: hidden;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.75);
+      margin-top: -8px;
+    }
+
+    .cap-btn {
+      width: 30px;
+      height: 21px;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #10324a;
+      background: linear-gradient(180deg, rgba(240,250,255,0.9) 0%, rgba(175,216,240,0.88) 48%, rgba(138,192,224,0.9) 52%, rgba(188,228,248,0.9) 100%);
+      border-right: 1px solid rgba(55,105,140,0.55);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .cap-btn.close {
+      width: 46px;
+      color: #ffffff;
+      border-right: none;
+      background: linear-gradient(180deg, #f8a498 0%, #e04a38 48%, #bc1e0c 52%, #ef6654 100%);
+      text-shadow: 0 1px 2px rgba(80,0,0,0.8);
+    }
+
+    /* Inner Workbench Container */
+    .workbench {
+      flex: 1;
+      border-radius: 6px;
+      border: 1px solid rgba(35,95,130,0.75);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background-size: cover;
+      background-position: center bottom;
+      transition: background 0.25s ease;
+    }
+
+    /* MODE 1: Scenic Wallpaper (Bubble-Free) */
+    .workbench.mode-wallpaper {
+      background-image: url("../assets/frutiger-aero-wallpaper.jpg");
+    }
+
+    /* MODE 2: Pure CSS Mesh Gradients */
+    .workbench.mode-mesh {
+      background-image:
+        radial-gradient(ellipse 65% 55% at 78% 72%, rgba(235, 255, 200, 0.5) 0%, rgba(140, 245, 220, 0.25) 38%, transparent 72%),
+        linear-gradient(128deg, transparent 35%, rgba(255, 255, 255, 0.22) 48%, transparent 56%, rgba(220, 255, 240, 0.18) 64%, transparent 74%),
+        radial-gradient(ellipse 85% 38% at 18% 102%, #3cc95c 0%, #249e58 55%, transparent 72%),
+        radial-gradient(ellipse 90% 42% at 82% 106%, #68e066 0%, #2eb868 48%, transparent 70%),
+        linear-gradient(180deg, #14588a 0%, #1e7ab0 32%, #2ca2cc 62%, #48c8d8 82%, #38b878 100%);
+    }
+
+    /* MODE 3: Minimal Glass Chrome */
+    .workbench.mode-minimal {
+      background: linear-gradient(180deg, #165e85 0%, #124869 100%);
+    }
+
+    /* Classic Metallic Silver-Blue Menu Bar */
+    .menubar {
+      height: 27px;
+      background: linear-gradient(180deg, #eef7fc 0%, #d4e8f6 48%, #bcd8ec 52%, #d4eaf8 100%);
+      border-bottom: 1px solid #7ab2d4;
+      box-shadow: inset 0 1px 0 #ffffff;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 18px;
+      font-size: 13px;
+      color: #0b2638;
+      z-index: 5;
+    }
+
+    .menubar span u {
+      text-decoration: underline;
+    }
+
+    /* Main Middle Body (Activity Bar + Sidebar + Editor) */
+    .workbench-body {
+      flex: 1;
+      display: flex;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 1. Activity Bar */
+    .activitybar {
+      width: 56px;
+      background: linear-gradient(
+        180deg,
+        rgba(98, 218, 164, 0.88) 0%,
+        rgba(48, 186, 134, 0.84) 42%,
+        rgba(28, 152, 182, 0.84) 78%,
+        rgba(20, 106, 172, 0.92) 100%
+      );
+      backdrop-filter: blur(var(--glass-blur));
+      border-right: 1px solid rgba(190, 255, 235, 0.7);
+      box-shadow: inset 1px 0 0 rgba(255,255,255,0.65);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      z-index: 3;
+    }
+
+    .act-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .act-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      color: #f2fffb;
+      font-size: 19px;
+      text-shadow: 0 1px 3px rgba(0,45,40,0.55);
+    }
+
+    .act-icon.active {
+      background: linear-gradient(180deg, rgba(255,255,255,0.52) 0%, rgba(255,255,255,0.16) 50%, rgba(0,60,50,0.12) 52%, rgba(255,255,255,0.28) 100%);
+      border: 1px solid rgba(255,255,255,0.85);
+      box-shadow: inset 0 1px 0 #ffffff, 0 2px 6px rgba(0,50,40,0.35);
+    }
+
+    .aero-badge {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 28%, #a8f2ff 0%, #24a4ea 48%, #0c68b0 88%, #48c6ff 100%);
+      border: 1px solid #ffffff;
+      box-shadow: inset 0 1px 1px #ffffff, 0 2px 4px rgba(0,30,65,0.55);
+      font-size: 10px;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+    }
+
+    /* 2. Sidebar / Explorer */
+    .sidebar {
+      width: 245px;
+      background: rgba(var(--sidebar-rgb), var(--glass-opacity));
+      backdrop-filter: blur(var(--glass-blur)) saturate(135%);
+      border-right: 1px solid rgba(175, 252, 228, 0.65);
+      box-shadow: inset 1px 0 0 rgba(255,255,255,0.35);
+      display: flex;
+      flex-direction: column;
+      z-index: 3;
+    }
+
+    .sidebar-title {
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      font-size: 12px;
+      letter-spacing: 0.6px;
+      color: #f2fffb;
+      text-shadow: 0 1px 2px rgba(0,45,35,0.65);
+    }
+
+    /* Glossy 3D Emerald Pill Header (Clean, Bubble-Free) */
+    .pane-header {
+      height: 26px;
+      margin: 2px 6px;
+      padding: 0 10px;
+      border-radius: 7px;
+      background: linear-gradient(180deg, #98f8ce 0%, #38c68e 46%, #1f9e6d 50%, #44daa6 100%);
+      border: 1px solid rgba(225, 255, 242, 0.9);
+      box-shadow: var(--Aero-bevel), 0 2px 5px rgba(0,45,35,0.38);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0,55,40,0.75);
+      position: relative;
+    }
+
+    .file-tree {
+      flex: 1;
+      padding: 6px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 13.5px;
+      color: #f4fffb;
+      text-shadow: 0 1px 2px rgba(0,40,30,0.65);
+    }
+
+    .tree-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 2px 6px;
+      border-radius: 5px;
+    }
+
+    .tree-item:hover {
+      background: rgba(130, 250, 210, 0.25);
+    }
+
+    .icon-folder {
+      color: #5ce6ff;
+      font-size: 13px;
+    }
+
+    .icon-js {
+      background: linear-gradient(180deg, #ffe875 0%, #f5b82e 100%);
+      color: #241800;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1px 3px;
+      border-radius: 3px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    /* 3. Editor Area */
+    .editor-area {
+      flex: 1;
+      background: rgba(var(--editor-rgb), var(--glass-opacity));
+      backdrop-filter: blur(var(--glass-blur)) saturate(130%);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 3;
+    }
+
+    /* Tabs Strip */
+    .tabs-strip {
+      height: 38px;
+      background: linear-gradient(180deg, rgba(66,172,218,0.65) 0%, rgba(38,130,178,0.78) 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 4px 10px 0 8px;
+      border-bottom: 1px solid rgba(205,248,255,0.75);
+    }
+
+    .tabs-list {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .aero-tab {
+      height: 32px;
+      padding: 0 16px;
+      border-radius: 10px 10px 0 0;
+      border: 1px solid rgba(185,240,255,0.7);
+      border-bottom: none;
+      background: linear-gradient(180deg, rgba(110,218,235,0.8) 0%, rgba(42,162,186,0.84) 48%, rgba(24,134,158,0.88) 52%, rgba(52,182,198,0.84) 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 -1px 4px rgba(0,45,70,0.25);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #e8fcff;
+      text-shadow: 0 1px 2px rgba(0,40,65,0.65);
+    }
+
+    .aero-tab.active {
+      height: 34px;
+      background: linear-gradient(180deg, rgba(215,248,255,0.96) 0%, rgba(125,216,252,0.92) 46%, rgba(72,182,232,0.92) 50%, rgba(118,212,250,0.95) 100%);
+      border: 1px solid #ffffff;
+      border-bottom: none;
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: inset 0 2px 0 #ffffff, 0 -2px 10px rgba(120,230,255,0.45);
+    }
+
+    /* Breadcrumbs Bar */
+    .breadcrumbs {
+      height: 26px;
+      background: linear-gradient(180deg, rgba(82,182,226,0.68) 0%, rgba(52,146,192,0.68) 100%);
+      border-bottom: 1px solid rgba(165,235,255,0.45);
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #e4f8ff;
+      text-shadow: 0 1px 2px rgba(0,35,60,0.55);
+    }
+
+    /* Code Canvas + Minimap */
+    .code-canvas {
+      flex: 1;
+      display: flex;
+      position: relative;
+      padding-top: 8px;
+      font-family: Consolas, "Cascadia Code", "Courier New", monospace;
+      font-size: 15px;
+      line-height: 22.5px;
+    }
+
+    .gutter {
+      width: 58px;
+      text-align: right;
+      padding-right: 18px;
+      color: rgba(190, 238, 255, 0.78);
+      font-size: 14px;
+    }
+
+    .code-lines {
+      flex: 1;
+      position: relative;
+    }
+
+    .code-line {
+      padding-left: 6px;
+      white-space: pre;
+      text-shadow: 0 1px 2px rgba(4, 28, 44, 0.62);
+      position: relative;
+    }
+
+    /* Active Line Frosted Highlight Band (Line 12) */
+    .code-line.active-line {
+      background: linear-gradient(180deg, rgba(215,248,255,0.32) 0%, rgba(140,225,255,0.2) 50%, rgba(195,244,255,0.28) 100%);
+      border-top: 1px solid rgba(230,252,255,0.62);
+      border-bottom: 1px solid rgba(170,238,255,0.45);
+    }
+
+    /* Beveled 3D Aqua Glass Pill on Line 13 (`lhatt = true;`) */
+    .aero-hover-pill {
+      display: inline-block;
+      padding: 1px 10px;
+      margin-left: 2px;
+      border-radius: 7px;
+      background: linear-gradient(180deg, rgba(165,235,255,0.95) 0%, rgba(62,175,220,0.95) 48%, rgba(32,142,192,0.96) 52%, rgba(75,190,235,0.95) 100%);
+      border: 1px solid rgba(235,253,255,0.96);
+      box-shadow: var(--Aero-bevel), 0 5px 12px rgba(0,32,56,0.55);
+      color: #ffffff;
+    }
+
+    /* Syntax Token Classes */
+    .kw   { color: var(--kw-color); }
+    .ctrl { color: var(--ctrl-color); }
+    .str  { color: var(--str-color); }
+    .fn   { color: var(--fn-color); }
+    .type { color: var(--type-color); }
+    .var  { color: var(--var-color); }
+    .prop { color: var(--prop-color); }
+    .num  { color: var(--num-color); }
+
+    /* Minimap */
+    .minimap {
+      width: 86px;
+      margin: 6px 12px 0 0;
+      height: 210px;
+      border-radius: 6px;
+      background: linear-gradient(180deg, rgba(45,142,188,0.55) 0%, rgba(35,168,142,0.55) 100%);
+      border: 1px solid rgba(185,245,255,0.45);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mini-bar {
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(180,245,255,0.55);
+    }
+
+    /* 4. Windows Aero Split-Shine Status Bar */
+    .statusbar {
+      height: 26px;
+      background: linear-gradient(180deg, #68daff 0%, #22a4e8 46%, #0e84cc 50%, #2ab6f4 100%);
+      border-top: 1px solid rgba(230,252,255,0.92);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.88);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0,45,80,0.7);
+      z-index: 5;
+    }
+
+    .status-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- INTERACTIVE EXPLORER CONTROLS -->
+  <div class="control-deck">
+    <div class="deck-group">
+      <span class="deck-label">Color Theme:</span>
+      <button class="aero-btn active" id="btn-daylight" onclick="setTheme('daylight')">Daylight Glass (Prototype)</button>
+      <button class="aero-btn" id="btn-deep" onclick="setTheme('deep-aqua')">Deep Aqua (High Contrast)</button>
+    </div>
+
+    <div class="deck-group">
+      <span class="deck-label">CSS Glass Mode:</span>
+      <button class="aero-btn active" id="btn-mode-wall" onclick="setMode('wallpaper')">1. Scenic Wallpaper</button>
+      <button class="aero-btn" id="btn-mode-mesh" onclick="setMode('mesh')">2. Pure CSS Mesh</button>
+      <button class="aero-btn" id="btn-mode-min" onclick="setMode('minimal')">3. Minimal Glass Chrome</button>
+    </div>
+
+    <div class="deck-group">
+      <label class="slider-wrap">
+        <span>Blur:</span>
+        <input type="range" min="0" max="16" value="7" oninput="updateBlur(this.value)" />
+      </label>
+      <label class="slider-wrap">
+        <span>Glass Tint:</span>
+        <input type="range" min="25" max="90" value="56" oninput="updateOpacity(this.value)" />
+      </label>
+    </div>
+  </div>
+
+  <!-- FRUTIGER AERO VS CODE WORKBENCH PROTOTYPE -->
+  <div class="vista-window">
+    <!-- Vista Aero Glass Title Bar -->
+    <div class="window-titlebar">
+      <div class="title-left">
+        <div class="vscode-orb">⋈</div>
+        <span>main.ppp.tl — Visual Studio Code</span>
+      </div>
+      <div class="caption-btns">
+        <div class="cap-btn">_</div>
+        <div class="cap-btn">□</div>
+        <div class="cap-btn close">✕</div>
+      </div>
+    </div>
+
+    <!-- Inner Workbench -->
+    <div class="workbench mode-wallpaper" id="workbench">
+      <!-- Metallic Menu Bar -->
+      <div class="menubar">
+        <span><u>F</u>ile</span>
+        <span><u>E</u>dit</span>
+        <span><u>S</u>election</span>
+        <span><u>V</u>iew</span>
+        <span><u>G</u>o</span>
+        <span><u>R</u>un</span>
+        <span><u>T</u>erminal</span>
+        <span><u>H</u>elp</span>
+      </div>
+
+      <!-- Main Body -->
+      <div class="workbench-body">
+        <!-- Activity Bar -->
+        <div class="activitybar">
+          <div class="act-group">
+            <div class="act-icon active">❐</div>
+            <div class="act-icon">⌕</div>
+            <div class="act-icon">⑂<span class="aero-badge">5</span></div>
+            <div class="act-icon">▷</div>
+            <div class="act-icon">⊞</div>
+            <div class="act-icon">⏣</div>
+          </div>
+          <div class="act-group">
+            <div class="act-icon">☺<span class="aero-badge">2</span></div>
+            <div class="act-icon">⚙<span class="aero-badge">1</span></div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <div class="sidebar-title">
+            <span>EXPLORER</span>
+            <span>•••</span>
+          </div>
+          <div class="pane-header">▾ OPEN EDITORS</div>
+          <div class="file-tree">
+            <div class="tree-item">▸ <span class="icon-folder">📁</span> .config</div>
+            <div class="tree-item">▸ <span class="icon-folder">📁</span> .bdd</div>
+            <div class="tree-item">▸ <span class="icon-folder">📁</span> bin</div>
+            <div class="tree-item">▸ <span class="icon-folder">📁</span> assets</div>
+            <div class="tree-item">▸ <span class="icon-folder">📁</span> node_modules</div>
+            <div class="tree-item">▸ <span class="icon-folder">📁</span> public</div>
+            <div class="tree-item">▸ <span class="icon-folder">📁</span> src</div>
+            <div class="tree-item">  <span class="icon-js">JS</span> .gitern</div>
+            <div class="tree-item">  <span class="icon-js" style="background:#ff7a59;color:#fff">❖</span> .gitignore</div>
+            <div class="tree-item">  <span class="icon-js">JS</span> index.js</div>
+            <div class="tree-item">  <span class="icon-js">JS</span> tudesist.js</div>
+            <div class="tree-item">  <span class="icon-js" style="background:#38c68e;color:#fff">{}</span> package.json</div>
+            <div class="tree-item">  <span class="icon-js" style="background:#24a4ea;color:#fff">ℹ</span> README.md</div>
+          </div>
+          <div class="pane-header">▸ OUTLINE</div>
+          <div class="pane-header" style="margin-bottom:6px">▸ TIMELINE</div>
+        </div>
+
+        <!-- Editor Area -->
+        <div class="editor-area">
+          <!-- Rounded 3D Aero Tabs -->
+          <div class="tabs-strip">
+            <div class="tabs-list">
+              <div class="aero-tab active">
+                <span style="color:#1b78c8">⋈</span> main.ppp.tl <span style="opacity:0.75;margin-left:4px">✕</span>
+              </div>
+              <div class="aero-tab">
+                <span class="icon-js">JS</span> main.css
+              </div>
+              <div class="aero-tab">
+                <span class="icon-js" style="background:#38c68e;color:#fff">JS</span> main.spaces
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;padding-bottom:6px;color:#eafaff">
+              <span>▷</span><span>◫</span><span>•••</span>
+            </div>
+          </div>
+
+          <!-- Breadcrumbs -->
+          <div class="breadcrumbs">
+            <span>src</span> <span>›</span> <span class="icon-js">JS</span> <span>main.ppp</span> <span>›</span> <span>⬡ main.sss</span>
+          </div>
+
+          <!-- Code Lines -->
+          <div class="code-canvas">
+            <div class="gutter">
+              <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
+              <div>7</div><div>8</div><div>9</div><div>10</div><div>11</div>
+              <div style="color:#fff;font-weight:700">12</div>
+              <div>13</div><div>14</div><div>15</div><div>16</div><div>17</div>
+              <div>18</div><div>19</div><div>20</div><div>21</div><div>22</div>
+              <div>23</div><div>24</div><div>25</div><div>26</div>
+            </div>
+            <div class="code-lines">
+              <div class="code-line"><span class="kw">import</span> { <span class="type">Coos</span> }, <span class="str">'request'</span>;</div>
+              <div class="code-line"><span class="kw">import</span> <span class="str">'./ader'</span>;</div>
+              <div class="code-line"></div>
+              <div class="code-line"><span class="kw">import default</span> <span class="prop">mdt</span> <span class="str">'from athents'</span>;</div>
+              <div class="code-line"><span class="kw">const</span> <span class="var">f</span> += <span class="str">"on"</span>;</div>
+              <div class="code-line"></div>
+              <div class="code-line"><span class="kw">function default</span> <span class="fn">BrowseMRader</span> {</div>
+              <div class="code-line">  <span class="kw">const</span> <span class="var">app</span> = <span class="fn">hi</span>();</div>
+              <div class="code-line">  <span class="fn">char</span>.<span class="var">inner</span>()</div>
+              <div class="code-line">    <span class="fn">default</span>.<span class="kw">int</span> <span class="var">view</span> ();</div>
+              <div class="code-line">    <span class="type">setuolr</span>(<span class="str">'#lusas.css'</span>) =&gt; {</div>
+              <div class="code-line active-line">      <span class="kw">const</span> <span class="var">ter</span>: <span class="str">"a set "</span> &lt;<span class="type">tip.hirlptcmmpents</span>&gt;</div>
+              <div class="code-line">      <span class="ctrl">return</span> <span class="aero-hover-pill">lhatt = <span class="num">true</span>;</span>      <span class="num">// 120</span></div>
+              <div class="code-line">    });</div>
+              <div class="code-line">};</div>
+              <div class="code-line"></div>
+              <div class="code-line"><span class="kw">export</span> {<span class="ctrl">ramme</span> <span class="str">"under allowsnge"</span> } =&gt; {</div>
+              <div class="code-line">  <span class="kw">const</span> <span class="var">ror</span> = <span class="fn">uniomString</span>[<span class="var">ence</span>();</div>
+              <div class="code-line">  <span class="var">resett</span> (&gt; {</div>
+              <div class="code-line">    <span class="ctrl">this</span>: <span class="str">"onp street"</span>,</div>
+              <div class="code-line">    <span class="ctrl">return</span> <span class="type">allowError</span>);</div>
+              <div class="code-line">  });</div>
+              <div class="code-line"></div>
+              <div class="code-line"><span class="kw">export</span> <span class="type">natureString</span> <span class="str">epponent ae"</span> <span class="kw">as</span> =&gt; {</div>
+              <div class="code-line">  <span class="ctrl">return</span> <span class="var">tex</span>;</div>
+              <div class="code-line">  <span class="kw">const</span> <span class="var">default</span>.<span class="fn">desportLight</span>:<span class="fn">Text</span>.<span class="fn">endorly</span>(&gt;</div>
+            </div>
+
+            <!-- Minimap -->
+            <div class="minimap">
+              <div class="mini-bar" style="width:65%"></div>
+              <div class="mini-bar" style="width:45%"></div>
+              <div class="mini-bar" style="width:80%;background:#9effdc"></div>
+              <div class="mini-bar" style="width:55%"></div>
+              <div class="mini-bar" style="width:90%;background:#ffe875"></div>
+              <div class="mini-bar" style="width:70%"></div>
+              <div class="mini-bar" style="width:40%"></div>
+              <div class="mini-bar" style="width:85%;background:#8ef4ff"></div>
+              <div class="mini-bar" style="width:60%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Windows Aero Cyan Status Bar -->
+      <div class="statusbar">
+        <div class="status-group">
+          <span>✕</span>
+          <span>⑂ main*</span>
+          <span>⊗ 0  ⚠ 0</span>
+        </div>
+        <div class="status-group">
+          <span>Ln 13, Col 11</span>
+          <span>Spaces: 2</span>
+          <span>UTF-8</span>
+          <span>LF</span>
+          <span>🔔</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function setTheme(variant) {
+      document.body.classList.toggle('theme-deep-aqua', variant === 'deep-aqua');
+      document.getElementById('btn-daylight').classList.toggle('active', variant === 'daylight');
+      document.getElementById('btn-deep').classList.toggle('active', variant === 'deep-aqua');
+    }
+
+    function setMode(mode) {
+      const wb = document.getElementById('workbench');
+      wb.className = 'workbench mode-' + mode;
+      document.getElementById('btn-mode-wall').classList.toggle('active', mode === 'wallpaper');
+      document.getElementById('btn-mode-mesh').classList.toggle('active', mode === 'mesh');
+      document.getElementById('btn-mode-min').classList.toggle('active', mode === 'minimal');
+    }
+
+    function updateBlur(val) {
+      document.documentElement.style.setProperty('--glass-blur', val + 'px');
+    }
+
+    function updateOpacity(val) {
+      document.documentElement.style.setProperty('--glass-opacity', (val / 100).toFixed(2));
+    }
+  </script>
+</body>
+</html>

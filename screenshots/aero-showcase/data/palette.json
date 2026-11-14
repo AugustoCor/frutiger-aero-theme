@@ -1,0 +1,10 @@
+{
+  "name": "Frutiger Aero",
+  "swatches": [
+    { "id": "sky", "hex": "#72c4e8", "glossy": true },
+    { "id": "aqua", "hex": "#7ce8ff", "glossy": true },
+    { "id": "meadow", "hex": "#5fd068", "glossy": false },
+    { "id": "cloud", "hex": "#f4fcff", "glossy": false }
+  ],
+  "wallpaper": { "blur": 14, "opacity": 0.85 }
+}

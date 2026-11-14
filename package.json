@@ -1,0 +1,72 @@
+{
+  "name": "frutiger-aero-theme",
+  "displayName": "Frutiger Aero Glass Theme Suite",
+  "description": "Glossy mid-2000s Frutiger Aero color themes (Daylight Glass and Deep Aqua), with an optional one-command frosted glass mode, scenic wallpaper and Aero-style title bar.",
+  "version": "1.0.0",
+  "publisher": "synthcity-interactive",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skyweldor/frutiger-aero-theme.git"
+  },
+  "homepage": "https://github.com/skyweldor/frutiger-aero-theme#readme",
+  "bugs": {
+    "url": "https://github.com/skyweldor/frutiger-aero-theme/issues"
+  },
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#2a8fc4",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Themes",
+    "Other"
+  ],
+  "keywords": [
+    "frutiger aero",
+    "aero glass",
+    "glass",
+    "aqua",
+    "skeuomorphic",
+    "glossy",
+    "y2k",
+    "theme"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Frutiger Aero (Daylight Glass)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/frutiger-aero-daylight-color-theme.json"
+      },
+      {
+        "label": "Frutiger Aero (Deep Aqua)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/frutiger-aero-deep-aqua-color-theme.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "frutigerAero.enableGlass",
+        "title": "Enable Glass Mode",
+        "category": "Frutiger Aero"
+      },
+      {
+        "command": "frutigerAero.disableGlass",
+        "title": "Disable Glass Mode",
+        "category": "Frutiger Aero"
+      }
+    ]
+  },
+  "scripts": {
+    "build:embed": "node scripts/build-wallpaper-embed.js",
+    "package": "npm run build:embed && node -e \"require('fs').mkdirSync('dist',{recursive:true})\" && npx --yes @vscode/vsce package --no-dependencies -o dist/"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  // Frutiger Aero Glass: the settings behind this window
+  "workbench.colorTheme": "Frutiger Aero (Daylight Glass)",
+  "window.controlsStyle": "custom",
+
+  // Glass mode (added for you by "Frutiger Aero: Enable Glass Mode")
+  "vscode_custom_css.imports": [
+    "file:///C:/path/to/frutiger-aero/css/frutiger-aero-full-wallpaper.css"
+  ],
+
+  "workbench.colorCustomizations": {
+    "[Frutiger Aero (Daylight Glass)]": {
+      "sideBar.background": "#00000000",   // let the glass show through
+      "menu.background": "#155f80f5",
+      "menu.foreground": "#f2fbff",
+      "menu.separatorBackground": "#7fc8e866"
+    }
+  },
+
+  "editor.bracketPairColorization.enabled": true,
+  "editor.fontLigatures": true
+}

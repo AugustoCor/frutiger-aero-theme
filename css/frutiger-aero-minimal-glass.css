@@ -1,0 +1,359 @@
+/* ==========================================================================
+   FRUTIGER AERO VS CODE SUITE — MODE 3: MINIMAL GLASS CHROME ONLY
+   ==========================================================================
+   Applies all iconic Frutiger Aero 3D skeuomorphic UI chrome (rounded glossy
+   tabs, emerald-aqua pill headers, vertical gradient Activity Bar, beveled
+   hover widgets, and split-shine status bar) while keeping the code editor
+   canvas a clean, distraction-free surface without background hills.
+   ========================================================================== */
+
+:root {
+  --aero-inner-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    inset 0 -1px 0 rgba(0, 45, 70, 0.35),
+    inset 1px 0 0 rgba(255, 255, 255, 0.35),
+    inset -1px 0 0 rgba(255, 255, 255, 0.35);
+}
+
+/* --------------------------------------------------------------------------
+   1. TITLE BAR & METALLIC AERO MENU BAR
+   -------------------------------------------------------------------------- */
+.monaco-workbench .part.titlebar {
+  background: linear-gradient(
+    180deg,
+    rgba(195, 236, 255, 0.94) 0%,
+    rgba(128, 204, 240, 0.92) 48%,
+    rgba(94, 182, 226, 0.92) 50%,
+    rgba(148, 218, 248, 0.94) 100%
+  ) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 4px rgba(0, 45, 75, 0.35) !important;
+}
+
+.monaco-workbench .part.titlebar .window-controls-container .window-close-bg,
+.monaco-workbench .part.titlebar .window-controls-container .codicon-chrome-close:hover {
+  background: linear-gradient(
+    180deg,
+    #ff9a8b 0%,
+    #e84530 48%,
+    #c21e0c 52%,
+    #ff6b57 100%
+  ) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 0 8px rgba(255, 70, 50, 0.75) !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. ACTIVITY BAR (Vertical Emerald-to-Aqua Gradient + Glass Icon Frames)
+   -------------------------------------------------------------------------- */
+.monaco-workbench .part.activitybar {
+  background: linear-gradient(
+    180deg,
+    #52c896 0%,
+    #2cad7c 42%,
+    #1c8ea8 78%,
+    #15629c 100%
+  ) !important;
+  border-right: 1px solid rgba(190, 255, 235, 0.65) !important;
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.65),
+    inset -1px 0 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+.monaco-workbench .part.activitybar .action-item.checked .action-label,
+.monaco-workbench .part.activitybar .action-item:hover .action-label {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.48) 0%,
+    rgba(255, 255, 255, 0.14) 50%,
+    rgba(0, 60, 50, 0.12) 52%,
+    rgba(255, 255, 255, 0.24) 100%
+  ) !important;
+  border-radius: 7px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 2px 6px rgba(0, 50, 40, 0.3) !important;
+}
+
+.monaco-workbench .badge .badge-content,
+.monaco-workbench .part.activitybar .badge .badge-content {
+  background: radial-gradient(
+    circle at 35% 28%,
+    #9beeff 0%,
+    #24a4ea 48%,
+    #0c68b0 88%,
+    #48c6ff 100%
+  ) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    0 2px 5px rgba(0, 35, 70, 0.5) !important;
+  font-weight: 700 !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. SIDEBAR GLOSSY 3D EMERALD-AQUA PILL SECTION HEADERS
+   -------------------------------------------------------------------------- */
+.monaco-workbench .part.sidebar .pane-header {
+  background: linear-gradient(
+    180deg,
+    #8ef5c8 0%,
+    #36c48d 46%,
+    #1f9e6d 50%,
+    #42d8a4 100%
+  ) !important;
+  border-radius: 7px !important;
+  margin: 3px 6px !important;
+  padding: 0 10px !important;
+  border: 1px solid rgba(220, 255, 240, 0.85) !important;
+  box-shadow: var(--aero-inner-bevel),
+    0 2px 5px rgba(0, 45, 35, 0.38) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 55, 40, 0.65) !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. ROUNDED 3D AERO GLASS EDITOR TABS
+   -------------------------------------------------------------------------- */
+.monaco-workbench .part.editor > .content .editor-group-container > .title {
+  padding-top: 4px !important;
+}
+
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab {
+  border-radius: 10px 10px 0 0 !important;
+  margin-right: 3px !important;
+  border: 1px solid rgba(185, 240, 255, 0.65) !important;
+  border-bottom: none !important;
+  background: linear-gradient(
+    180deg,
+    rgba(110, 218, 235, 0.85) 0%,
+    rgba(42, 162, 186, 0.88) 48%,
+    rgba(24, 134, 158, 0.92) 52%,
+    rgba(52, 182, 198, 0.88) 100%
+  ) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    inset 1px 0 0 rgba(255, 255, 255, 0.35),
+    0 -1px 4px rgba(0, 45, 70, 0.25) !important;
+}
+
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.active {
+  background: linear-gradient(
+    180deg,
+    rgba(210, 246, 255, 0.96) 0%,
+    rgba(122, 214, 250, 0.94) 46%,
+    rgba(72, 182, 232, 0.94) 50%,
+    rgba(118, 212, 250, 0.96) 100%
+  ) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-bottom: none !important;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.98),
+    inset 1px 0 0 rgba(255, 255, 255, 0.65),
+    inset -1px 0 0 rgba(255, 255, 255, 0.65),
+    0 -2px 8px rgba(110, 225, 255, 0.45) !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. ACTIVE LINE GLASS HIGHLIGHT & BEVELED HOVER PILL
+   -------------------------------------------------------------------------- */
+.monaco-editor .view-overlays .current-line {
+  background: linear-gradient(
+    180deg,
+    rgba(210, 248, 255, 0.22) 0%,
+    rgba(135, 222, 255, 0.14) 50%,
+    rgba(195, 244, 255, 0.18) 100%
+  ) !important;
+  border-top: 1px solid rgba(225, 252, 255, 0.45) !important;
+  border-bottom: 1px solid rgba(165, 235, 255, 0.35) !important;
+}
+
+.monaco-editor .monaco-hover,
+.monaco-editor .suggest-widget {
+  background: linear-gradient(
+    180deg,
+    rgba(145, 228, 255, 0.95) 0%,
+    rgba(56, 168, 214, 0.95) 48%,
+    rgba(32, 138, 188, 0.97) 52%,
+    rgba(68, 182, 228, 0.96) 100%
+  ) !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(230, 252, 255, 0.95) !important;
+  box-shadow: var(--aero-inner-bevel),
+    0 6px 16px rgba(0, 32, 56, 0.55) !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. WINDOWS AERO SPLIT-SHINE STATUS BAR
+   -------------------------------------------------------------------------- */
+.monaco-workbench .part.statusbar {
+  background: linear-gradient(
+    180deg,
+    #66d8ff 0%,
+    #22a4e8 46%,
+    #0e84cc 50%,
+    #28b4f4 100%
+  ) !important;
+  border-top: 1px solid rgba(225, 252, 255, 0.9) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 -2px 8px rgba(0, 65, 110, 0.35) !important;
+  text-shadow: 0 1px 2px rgba(0, 45, 80, 0.65) !important;
+}
+
+/* --------------------------------------------------------------------------
+   11. WINDOWS 7 AERO CAPTION (title bar, menu bar, caption buttons)
+   Caption buttons need  "window.controlsStyle": "custom"  in settings.json
+   (otherwise Windows draws native buttons that CSS can't reach).
+   -------------------------------------------------------------------------- */
+.monaco-workbench .part.titlebar {
+  background:
+    linear-gradient(180deg,
+      rgba(255, 255, 255, 0.55) 0%,
+      rgba(255, 255, 255, 0.16) 48%,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(255, 255, 255, 0.14) 100%),
+    linear-gradient(180deg, #c4e1f3 0%, #a9d0e8 52%, #9cc8e3 100%) !important;
+  color: #0b1a24 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(80, 135, 170, 0.45),
+    0 1px 3px rgba(0, 40, 70, 0.25) !important;
+}
+
+/* Dark caption text with the classic soft white Aero glow */
+.monaco-workbench .part.titlebar .window-title,
+.monaco-workbench .part.titlebar .menubar .menubar-menu-button {
+  color: #0b1a24 !important;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.95), 0 0 3px rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Menu bar hover / open: light glass pill */
+.monaco-workbench .part.titlebar .menubar .menubar-menu-button:hover .menubar-menu-title,
+.monaco-workbench .part.titlebar .menubar .menubar-menu-button.open .menubar-menu-title,
+.monaco-workbench .part.titlebar .menubar .menubar-menu-button:focus .menubar-menu-title {
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(224, 242, 253, 0.8) 49%,
+    rgba(190, 226, 248, 0.8) 51%,
+    rgba(218, 240, 253, 0.9) 100%) !important;
+  color: #0b1a24 !important;
+  border-radius: 3px !important;
+  box-shadow: inset 0 0 0 1px rgba(105, 165, 205, 0.9),
+    inset 0 2px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Command center (search box in the middle) as a frosted field */
+.monaco-workbench .part.titlebar .command-center .action-item.command-center-center {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(235, 247, 255, 0.4)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: inset 0 1px 2px rgba(60, 110, 145, 0.35) !important;
+  color: #0b1a24 !important;
+}
+.monaco-workbench .part.titlebar .command-center .action-item.command-center-center * {
+  color: #0b1a24 !important;
+}
+
+/* Caption buttons: separate glass pills, vertically centered, small gaps */
+.monaco-workbench .part.titlebar .window-controls-container {
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 4px !important;
+  padding-right: 8px !important;
+  box-sizing: border-box !important;
+}
+.monaco-workbench .part.titlebar .window-controls-container > .window-icon {
+  height: 20px !important;
+  width: 27px !important;
+  font-size: 12px !important;
+  color: #ffffff !important;
+  text-shadow: 0 0 2px rgba(0, 25, 50, 0.95), 0 1px 1px rgba(0, 25, 50, 0.9) !important;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(206, 230, 246, 0.55) 46%,
+    rgba(138, 186, 218, 0.6) 50%,
+    rgba(184, 222, 244, 0.75) 100%) !important;
+  border: 1px solid rgba(38, 66, 96, 0.75) !important;
+  border-radius: 4px !important;
+  box-sizing: border-box !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.65),
+    0 1px 2px rgba(0, 35, 65, 0.3) !important;
+}
+.monaco-workbench .part.titlebar .window-controls-container > .window-icon.window-close {
+  width: 44px !important;
+  background: linear-gradient(180deg,
+    #f2a194 0%,
+    #d9604c 46%,
+    #c2321c 50%,
+    #d8553b 78%,
+    #f0a07a 100%) !important;
+}
+
+/* Back / Forward: Windows 7 Explorer-style blue glass orbs */
+.monaco-workbench .part.titlebar .command-center .action-item > .action-label:is(.codicon-arrow-left, .codicon-arrow-right) {
+  width: 22px !important;
+  height: 22px !important;
+  padding: 0 !important;
+  margin: 0 2px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 14px !important;
+  border-radius: 50% !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 1px rgba(0, 30, 70, 0.85) !important;
+  background: radial-gradient(circle at 50% 28%,
+    #d8f3ff 0%,
+    #6cc1f2 30%,
+    #1f7fd0 62%,
+    #0c4f9a 86%,
+    #3a92dc 100%) !important;
+  border: 1px solid rgba(12, 52, 102, 0.85) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -2px 3px rgba(120, 210, 255, 0.55),
+    0 1px 3px rgba(0, 30, 70, 0.45) !important;
+}
+.monaco-workbench .part.titlebar .command-center .action-item:not(.disabled) > .action-label:is(.codicon-arrow-left, .codicon-arrow-right):hover {
+  background: radial-gradient(circle at 50% 28%,
+    #f0fbff 0%,
+    #8fd6ff 30%,
+    #2e9bf0 62%,
+    #1066c4 86%,
+    #5ab4f5 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0 9px rgba(80, 195, 255, 0.95) !important;
+}
+/* Disabled (no history yet): muted steel-blue orb, still clearly visible */
+.monaco-workbench .part.titlebar .command-center .action-item.disabled > .action-label:is(.codicon-arrow-left, .codicon-arrow-right) {
+  filter: saturate(0.25) brightness(1.08) !important;
+  opacity: 0.8 !important;
+}
+
+/* Hover glows: blue for min/max, hot red for close */
+.monaco-workbench .part.titlebar .window-controls-container > .window-icon:hover {
+  background: linear-gradient(180deg,
+    #e3f6ff 0%,
+    #9dd8f7 46%,
+    #3fa8e8 50%,
+    #84dcff 100%) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8),
+    0 0 10px rgba(90, 200, 255, 0.95) !important;
+}
+.monaco-workbench .part.titlebar .window-controls-container > .window-icon.window-close:hover {
+  background: linear-gradient(180deg,
+    #ffc0b0 0%,
+    #f2735a 46%,
+    #e0371a 50%,
+    #f26a3e 78%,
+    #ffc28e 100%) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+    0 0 12px rgba(255, 90, 40, 0.95) !important;
+}
+
+/* --------------------------------------------------------------------------
+   12. HIGH-CONTRAST TEXT POINTER + GLOWING CARET
+   The OS I-beam vanishes on mid-tone glass. Swap in a white-outlined navy
+   I-beam (hotspot at its center). VS Code's drag/copy pointers are untouched.
+   -------------------------------------------------------------------------- */
+.monaco-editor:not(.mouse-default):not(.mouse-copy) .view-lines {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='26' viewBox='0 0 16 26'%3E%3Cpath d='M4.5 3.5h7M8 3.5v19M4.5 22.5h7' fill='none' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M4.5 3.5h7M8 3.5v19M4.5 22.5h7' fill='none' stroke='%23082b3f' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") 8 13, text !important;
+}
+
+/* Soft glow on the typing caret so it's easy to spot on glass */
+.monaco-editor .cursors-layer .cursor {
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.85), 0 0 8px rgba(120, 220, 255, 0.6) !important;
+}

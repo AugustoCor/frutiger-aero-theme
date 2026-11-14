@@ -1,0 +1,24 @@
+{
+  "// ========================================================================": "",
+  "// 1. BASE COLOR THEME (Choose either Daylight Glass or Deep Aqua)": "",
+  "// ========================================================================": "",
+  "workbench.colorTheme": "Frutiger Aero (Daylight Glass)",
+
+  "// ========================================================================": "",
+  "// 2. OPTION A: Using 'Custom CSS and JS Loader' (be5invis.vscode-custom-css)": "",
+  "//    Uncomment ONE of the three CSS files below to choose your glass mode,": "",
+  "//    then run Command Palette -> 'Enable Custom CSS and JS'": "",
+  "// ========================================================================": "",
+  "vscode_custom_css.imports": [
+    "file:///C:/path/to/frutiger-aero/css/frutiger-aero-full-wallpaper.css"
+    // "file:///C:/path/to/frutiger-aero/css/frutiger-aero-mesh-orbs.css"
+    // "file:///C:/path/to/frutiger-aero/css/frutiger-aero-minimal-glass.css"
+  ],
+
+  "// ========================================================================": "",
+  "// 3. RECOMMENDED WINDOW SETTING FOR AUTHENTIC AERO TITLE BAR": "",
+  "// ========================================================================": "",
+  "window.titleBarStyle": "custom",
+  "editor.semanticHighlighting.enabled": true,
+  "editor.bracketPairColorization.enabled": true
+}
