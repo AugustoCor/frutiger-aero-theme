@@ -4,7 +4,7 @@
 $ErrorActionPreference = "Stop"
 
 $SourceDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$ExtName   = "synthcity-interactive.frutiger-aero-theme-1.0.0"
+$ExtName   = "synthcity-digilabs.frutiger-aero-theme-1.0.0"
 
 $Targets = @(
     (Join-Path $HOME ".vscode\extensions"),
