@@ -12,6 +12,15 @@ Glossy, sky-blue and emerald color themes inspired by the mid-2000s Frutiger Aer
 
 *Screenshots show the Scenic Wallpaper + Full Glass mode.*
 
+## Install
+
+Download the `.vsix` file from the latest [GitHub release](https://github.com/Skyweldor/frutiger-aero-theme/releases/latest), then either:
+
+- In VS Code, open the Extensions view, click **⋯** at the top, choose **Install from VSIX...** and pick the file, or
+- Run `code --install-extension frutiger-aero-theme-1.0.0.vsix` in a terminal.
+
+This also works in VS Code-based editors such as Antigravity, Cursor and VSCodium.
+
 ## Color themes
 
 Open the theme picker (`Ctrl+K Ctrl+T`, or `Cmd+K Cmd+T` on macOS) and choose:
