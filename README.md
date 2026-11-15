@@ -14,12 +14,14 @@ Glossy, sky-blue and emerald color themes inspired by the mid-2000s Frutiger Aer
 
 ## Install
 
-Download the `.vsix` file from the latest [GitHub release](https://github.com/Skyweldor/frutiger-aero-theme/releases/latest), then either:
+**From the VS Code Marketplace:** [install Frutiger Aero Glass Theme Suite](https://marketplace.visualstudio.com/items?itemName=synthcity-digilabs.frutiger-aero-theme), or search for "Frutiger Aero" in the Extensions view. Updates install automatically.
 
-- In VS Code, open the Extensions view, click **⋯** at the top, choose **Install from VSIX...** and pick the file, or
+**From a GitHub release:** download the `.vsix` file from the [latest release](https://github.com/Skyweldor/frutiger-aero-theme/releases/latest), then either:
+
+- In the Extensions view, click **⋯** at the top, choose **Install from VSIX...** and pick the file, or
 - Run `code --install-extension frutiger-aero-theme-1.0.0.vsix` in a terminal.
 
-This also works in VS Code-based editors such as Antigravity, Cursor and VSCodium.
+The `.vsix` also works in VS Code-based editors such as Antigravity, Cursor and VSCodium.
 
 ## Color themes
 
@@ -62,4 +64,4 @@ To undo everything, run **Frutiger Aero: Disable Glass Mode**.
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE). Published by [SynthCity DigiLabs](https://www.synthcitydigilabs.com/).
